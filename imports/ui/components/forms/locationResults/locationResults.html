@@ -1,0 +1,46 @@
+<template name="ui_components_forms_locationResults">
+    
+    <div class="fixed-action-btn hide-on-med-and-down" id="backToTopBtn">
+        <a class="btn-floating btn-large red waves-effect waves-light">
+            <i class="large material-icons">arrow_drop_up</i>
+        </a>
+    </div>
+
+    <div class="container"><h2 id="titleHeader" class="center">{{titleHeader}}</h2></div>
+
+    <div class="map-container">
+        {{> googleMap name="concertMap" options=concertMapOptions}}
+    </div>
+
+    <div class="container">
+        <div class="row" id="progressRow">
+            <div class="progress"> 
+                <div class="indeterminate red"></div>
+            </div>
+        </div>
+
+        <h2 class="center">{{eventCount}}</h2>
+        {{#each event in eventData}}
+        <div class="row">
+            <ul class="collection with-header">
+                <li class="collection-header">
+                    <h4 class="truncate">
+                        <a href={{event.venue.uri}}>{{event.venue.displayName}}</a>, 
+                        {{event.venue.metroArea.country.displayName}},
+                        {{event.venue.metroArea.displayName}},
+                        {{event.venue.metroArea.state.displayName}}
+                    </h4>
+                </li>
+                {{#each artist in event.performance}}
+                    <li class="collection-item"><a href="#" id="artistName">{{artist.displayName}}</a></li>
+                {{/each}}
+                <li class="collection-item">
+                    Date: {{event.start.date}}
+                    <a class="right" href={{event.uri}}>More Info</a>
+                </li>
+            </ul>
+        </div>
+        {{/each}}
+    </div>
+   
+</template>

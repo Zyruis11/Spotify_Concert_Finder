@@ -1,0 +1,19 @@
+/* https://github.com/Dogfalo/materialize/issues/1507 */
+[type="radio"].with-gap:checked + label:before {
+    border-radius: 50%;
+    border: 2px solid #f44336 ; }
+    
+    [type="radio"].with-gap:checked + label:after {
+    border-radius: 50%;
+    border: 2px solid #f44336 ;
+    background-color: #f44336 ;
+    z-index: 0;
+    -webkit-transform: scale(.5);
+    -moz-transform: scale(.5);
+    -ms-transform: scale(.5);
+    -o-transform: scale(.5);
+    transform: scale(.5); }
+
+    .parallax-container {
+        height: 450px;
+      }

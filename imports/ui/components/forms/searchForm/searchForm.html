@@ -1,0 +1,89 @@
+<template name='ui_components_forms_searchForm'>
+
+    <div class="parallax-container  hide-on-med-and-down">
+        <div class="parallax"><img src="https://i.imgur.com/br9loSY.jpg"></div>
+    </div>
+
+    <div class="container">
+        <form id="searchForm">
+            <div class="row">
+                <br>
+                <div class="input-field col s10 push-s1 pull-s1">
+                    <input id="searchQuery" type="text" class="validate" required>
+                    <label for="searchQuery" data-error="Try again..." data-success="Too Easy">Search for an artist or city</label>
+                </div>
+                <div id="dateFilters">
+                    <div class="col s5 push-s1 pull-s1">
+                        <input type="text" class="datepicker" id="minDatePicker">
+                        <label for="minDatePicker">Select A Start Date(Optional)</label>
+                    </div>
+                    <div class="col s5 push-s1 pull-s1">
+                        <input type="text" class="datepicker" id="maxDatePicker">
+                        <label for="maxDatePicker">Select A End Date(Optional)</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="radioBtns col s1 push-s1">
+                    <input name="radioBtns" type="radio" id="artistRadio" class="with-gap" required/>
+                    <label for="artistRadio">Artist</label>
+                    <input name="radioBtns" type="radio" id="locationRadio" class="with-gap" required/>
+                    <label for="locationRadio">Location</label>
+                </div>
+
+                <button class="btn waves-effect waves-light col red right pull-s1" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+                </button>
+                <a class="waves-effect waves-light btn col right pull-s1" id="randomBtn"><i class="material-icons right">shuffle</i>Random</a>
+                
+            </div>
+        </form>
+        <h2 id="artistResults" class="center"></h2>
+        {{>ui_components_forms_searchFormResults}}
+    </div>
+</template>
+
+<template name='ui_components_forms_searchFormResults'>
+
+    <div class="row" id="progressRow">
+        <div class="progress">
+            <div class="indeterminate red"></div>
+        </div>
+    </div>
+    <div class="row">
+
+        {{#each artist in getArtistData}}
+            <div class="col s12 m12 l6 xl6">
+                <h2 class="header truncate">{{artist.name}}</h2>
+                <div class="card horizontal">
+                    <div class="card-image">
+                        {{#each artistImg in artist.images}} 
+                            {{#if smallImg artistImg.width}}
+                                <a href={{artist.external_urls.spotify}}><img width="300" height="300" src={{artistImg.url}}></a> 
+                            {{/if}}
+                        {{else}}
+                            <img width="300" height="300" src=http://i.imgur.com/FCvBd2k.jpg> 
+                        {{/each}}
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            {{#each artistGenre in artist.genres}}
+                                <div class="chip">
+                                    <p style="text-transform: capitalize;">
+                                        {{artistGenre}}
+                                    </p>
+                                </div>
+                            {{else}} 
+                                No Genres 
+                            {{/each}}
+                        </div>
+                        <div class="card-action">
+                            <a class="artistName" href="#" id={{artist.name}}>Find Gigs!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</template>
